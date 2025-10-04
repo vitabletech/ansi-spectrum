@@ -29,6 +29,7 @@ A VS Code extension that highlights ANSI escape color codes with their actual co
 ### Example
 
 In a file containing:
+
 ```
 \033[31mThis is red text\033[0m
 \033[32mThis is green text\033[0m
@@ -40,6 +41,7 @@ The ANSI codes (`\033[31m`, `\033[32m`, `\033[34m`) will be highlighted in red, 
 ## Supported ANSI Formats
 
 The extension recognizes both:
+
 - `\033[31m` (simple color code)
 - `\033[0;31m` (color code with attributes)
 
@@ -58,7 +60,9 @@ This extension currently does not contribute any VS Code settings. It works auto
 
 ## Development
 
-To run the extension in development:
+The extension uses a modern, modular architecture for better maintainability:
+
+### Setup
 
 1. Clone this repository
 2. Run `npm install` to install dependencies
@@ -66,11 +70,28 @@ To run the extension in development:
 4. Press `F5` to launch a new VS Code window with the extension loaded
 5. Open the `test-ansi-colors.txt` file to see the extension in action
 
+### Project Structure
+
+- `src/extension.ts` - Main entry point
+- `src/constants.ts` - Color mappings and configurations
+- `src/utils.ts` - Utility functions for color operations
+- `src/colorManager.ts` - Color picker and selection logic
+- `src/decorationManager.ts` - Text decoration management
+- `src/providers/` - VS Code language service providers
+
+### Available Scripts
+
+- `npm run compile` - Build the extension
+- `npm run watch` - Build in watch mode for development
+- `npm run lint` - Run ESLint
+- `npm run test` - Run tests
+
 ## Release Notes
 
 ### 0.0.1
 
 Initial release of ANSI Color Viewer
+
 - Basic ANSI color code detection (30-37)
 - Real-time highlighting with actual colors
 - Support for both simple and attribute-based ANSI codes
