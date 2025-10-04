@@ -49,9 +49,9 @@ setup_project.sh
 package-lock.json
 yarn.lock
 images/demo.mp4
+images/image.gif
 
 # Keep logo.png and demo files for marketplace
 # images/logo.png - KEEP (needed for extension icon)
-# images/image.gif - KEEP (for demo)
 # README.md - KEEP (for marketplace description)
 # LICENSE - KEEP (for marketplace)    
