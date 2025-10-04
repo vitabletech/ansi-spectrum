@@ -2,6 +2,12 @@ This is a test file for ANSI Color Viewer extension.
 
 Here are some ANSI color codes to test:
 
+Simple test:
+\033[31mRed
+\033[32mGreen  
+\033[34mBlue
+\x1b[35mMagenta with x1b format
+
 Black text: \033[0;30mThis should be black\033[0m
 Red text: \033[0;31mThis should be red\033[0m
 Green text: \033[0;32mThis should be green\033[0m

@@ -1,14 +1,57 @@
+# Development and build files
 .vscode/**
 .vscode-test/**
 out/**
 node_modules/**
 src/**
-.gitignore
-.yarnrc
 webpack.config.js
-vsc-extension-quickstart.md
-**/tsconfig.json
-**/eslint.config.mjs
+tsconfig.json
+eslint.config.mjs
 **/*.map
 **/*.ts
 **/.vscode-test.*
+
+# Git and version control
+.git/**
+.gitignore
+.github/**
+
+# Development tooling
+.eslintrc.cjs
+.prettierrc
+.commitlintrc.json
+.husky/**
+lint-staged.config.cjs
+.yarnrc
+
+# Documentation (keep only README.md for marketplace)
+CHANGELOG.md
+EXTENSION-TESTING-GUIDE.md
+GLOBAL-COVERAGE.md
+REFACTORING.md
+TESTING.md  
+vsc-extension-quickstart.md
+test-color-picker.md
+
+# Test files
+test-*.txt
+simple-test.txt
+enhanced-test.txt
+comprehensive-ansi-test.txt
+test-extension-features.txt
+colors.sh
+setup_project.sh
+
+# Generated package
+*.vsix
+
+# Lock files (keep package.json but not lock files)
+package-lock.json
+yarn.lock
+images/demo.mp4
+
+# Keep logo.png and demo files for marketplace
+# images/logo.png - KEEP (needed for extension icon)
+# images/image.gif - KEEP (for demo)
+# README.md - KEEP (for marketplace description)
+# LICENSE - KEEP (for marketplace)    

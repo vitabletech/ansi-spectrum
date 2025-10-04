@@ -6,7 +6,7 @@ _The most comprehensive ANSI escape sequence visualization extension for VS Code
 
 Transform your development experience with complete ANSI escape sequence visualization. ANSI Spectrum not only highlights ANSI color codes with their actual colors but also provides native color picker integration and supports all modern ANSI formats used in terminal applications, logs, and documentation.
 
-![Demo](./images/image.gif)
+![Demo](https://raw.githubusercontent.com/vitabletech/ansi-spectrum/main/images/image.gif)
 
 ## 🚀 Key Features
 
