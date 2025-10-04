@@ -2,7 +2,12 @@
  * Utility functions for ANSI Color Viewer extension
  */
 import * as vscode from 'vscode';
-import { ANSI_COLOR_MAP, COLOR_NAMES, ANSI_COLOR_REGEX } from './constants';
+import {
+  ANSI_COLOR_MAP,
+  COLOR_NAMES,
+  ANSI_COLOR_REGEX,
+  ANSI_256_COLORS,
+} from './constants';
 import { AnsiColorInfo, ColorMatch } from './types';
 
 /**
@@ -61,21 +66,86 @@ export function findClosestAnsiColor(hexColor: string): string {
 }
 
 /**
- * Parse ANSI color code and extract components
+ * Parse ANSI color code and extract components - Enhanced for all formats
  */
 export function parseAnsiCode(ansiCode: string): ColorMatch | null {
-  const match = ansiCode.match(/\\(?:033|x1b)\[(?:(\d+);)?(\d+)m/);
-  if (!match) {
+  // Try different regex patterns
+
+  // True color RGB: \033[38;2;r;g;b;m or \033[48;2;r;g;b;m
+  let match = ansiCode.match(/\\(?:033|x1b|e)\[(?:38|48);2;(\d+);(\d+);(\d+)m/);
+  if (match) {
+    const r = parseInt(match[1]);
+    const g = parseInt(match[2]);
+    const b = parseInt(match[3]);
+    const hexColor = `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+    return {
+      fullMatch: match[0],
+      colorCode: 'rgb',
+      attribute: hexColor, // Store hex color in attribute field
+      startIndex: 0,
+      endIndex: match[0].length,
+    };
+  }
+
+  // 256-color: \033[38;5;n;m or \033[48;5;n;m
+  match = ansiCode.match(/\\(?:033|x1b|e)\[(?:38|48);5;(\d+)m/);
+  if (match) {
+    const colorIndex = parseInt(match[1]);
+    return {
+      fullMatch: match[0],
+      colorCode: '256',
+      attribute: colorIndex.toString(),
+      startIndex: 0,
+      endIndex: match[0].length,
+    };
+  }
+
+  // Standard colors with multiple attributes: \033[1;4;31m
+  match = ansiCode.match(/\\(?:033|x1b|e)\[(?:(\d+);)*(\d+)m/);
+  if (match) {
+    return {
+      fullMatch: match[0],
+      colorCode: match[2],
+      attribute: match[1],
+      startIndex: 0,
+      endIndex: match[0].length,
+    };
+  }
+
+  return null;
+}
+
+/**
+ * Get color hex value from any ANSI format
+ */
+export function getColorFromAnsiCode(ansiCode: string): string | null {
+  const parsed = parseAnsiCode(ansiCode);
+  if (!parsed) {
     return null;
   }
 
-  return {
-    fullMatch: match[0],
-    colorCode: match[2],
-    attribute: match[1],
-    startIndex: 0,
-    endIndex: match[0].length,
-  };
+  // Handle RGB true color
+  if (parsed.colorCode === 'rgb' && parsed.attribute) {
+    return parsed.attribute; // Already a hex color
+  }
+
+  // Handle 256-color palette
+  if (parsed.colorCode === '256' && parsed.attribute) {
+    const index = parseInt(parsed.attribute);
+    if (index >= 0 && index < ANSI_256_COLORS.length) {
+      return ANSI_256_COLORS[index];
+    }
+  }
+
+  // Handle standard colors
+  return ANSI_COLOR_MAP[parsed.colorCode] || null;
+}
+
+/**
+ * Convert RGB values to hex
+ */
+export function rgbToHex(r: number, g: number, b: number): string {
+  return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
 }
 
 /**

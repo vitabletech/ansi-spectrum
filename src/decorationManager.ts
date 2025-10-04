@@ -9,15 +9,38 @@ export class DecorationManager {
   private decorationTypes: Record<string, vscode.TextEditorDecorationType> = {};
 
   /**
-   * Create or get decoration type for a specific color
+   * Safely extract color code from regex match with fallbacks
+   */
+  private extractColorCodeSafely(match: RegExpExecArray): string | null {
+    // Try different capture groups that might contain the color code
+    for (let i = match.length - 1; i >= 1; i--) {
+      if (match[i] && match[i].match(/^\d+$/)) {
+        return match[i];
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Create or get decoration type for a specific color - Enhanced for all formats
    */
   private getDecorationTypeForColor(
-    colorCode: string
+    colorKey: string
   ): vscode.TextEditorDecorationType {
-    if (!this.decorationTypes[colorCode]) {
-      const hexColor = ANSI_COLOR_MAP[colorCode];
+    if (!this.decorationTypes[colorKey]) {
+      // colorKey might be a hex color directly or an ANSI code
+      let hexColor: string;
+
+      if (colorKey.startsWith('#')) {
+        // Already a hex color
+        hexColor = colorKey;
+      } else {
+        // Look up in ANSI_COLOR_MAP
+        hexColor = ANSI_COLOR_MAP[colorKey];
+      }
+
       if (hexColor) {
-        this.decorationTypes[colorCode] =
+        this.decorationTypes[colorKey] =
           vscode.window.createTextEditorDecorationType({
             color: hexColor,
             before: {
@@ -28,34 +51,57 @@ export class DecorationManager {
           });
       }
     }
-    return this.decorationTypes[colorCode];
+    return this.decorationTypes[colorKey];
   }
 
   /**
-   * Find all ANSI codes in document and group by color
+   * Find all ANSI codes in document and group by color - Enhanced for all formats
    */
   private findAnsiCodes(document: vscode.TextDocument): DecorationGroup {
     const text = document.getText();
     const decorationsByColor: DecorationGroup = {};
 
-    // Find all ANSI color codes in the document
+    // Import utilities to handle complex ANSI codes
+    const { parseAnsiCode, getColorFromAnsiCode } = require('./utils');
+
+    // Find all ANSI color codes in the document using comprehensive regex
     let match;
     ANSI_COLOR_REGEX.lastIndex = 0; // Reset regex state
 
     while ((match = ANSI_COLOR_REGEX.exec(text)) !== null) {
-      const colorCode = match[2];
-
-      // Check if we have a mapping for this color code
-      if (ANSI_COLOR_MAP[colorCode]) {
+      try {
         const startPos = document.positionAt(match.index);
         const endPos = document.positionAt(match.index + match[0].length);
         const range = new vscode.Range(startPos, endPos);
 
-        // Group ranges by color code
-        if (!decorationsByColor[colorCode]) {
-          decorationsByColor[colorCode] = [];
+        // Get the actual color for this ANSI code
+        const hexColor = getColorFromAnsiCode(match[0]);
+
+        if (hexColor) {
+          // Use hex color as key for grouping
+          const colorKey = hexColor;
+
+          if (!decorationsByColor[colorKey]) {
+            decorationsByColor[colorKey] = [];
+          }
+          decorationsByColor[colorKey].push(range);
+        } else {
+          // Fallback to standard parsing for compatibility
+          const colorCode = this.extractColorCodeSafely(match);
+          if (colorCode && ANSI_COLOR_MAP[colorCode]) {
+            if (!decorationsByColor[colorCode]) {
+              decorationsByColor[colorCode] = [];
+            }
+            decorationsByColor[colorCode].push(range);
+          }
         }
-        decorationsByColor[colorCode].push(range);
+      } catch (error) {
+        // Silently skip invalid ANSI codes
+        console.warn(
+          `Failed to parse ANSI code at position ${match.index}:`,
+          error
+        );
+        continue;
       }
     }
 
@@ -74,11 +120,16 @@ export class DecorationManager {
 
     const decorationsByColor = this.findAnsiCodes(editor.document);
 
-    // Apply decorations for each color
-    Object.keys(ANSI_COLOR_MAP).forEach((colorCode) => {
-      const decorationType = this.getDecorationTypeForColor(colorCode);
+    // Clear existing decorations first
+    Object.values(this.decorationTypes).forEach((decoration) => {
+      editor.setDecorations(decoration, []);
+    });
+
+    // Apply decorations for each color found
+    Object.keys(decorationsByColor).forEach((colorKey) => {
+      const decorationType = this.getDecorationTypeForColor(colorKey);
       if (decorationType) {
-        const ranges = decorationsByColor[colorCode] || [];
+        const ranges = decorationsByColor[colorKey] || [];
         editor.setDecorations(decorationType, ranges);
       }
     });

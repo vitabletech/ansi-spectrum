@@ -1,0 +1,105 @@
+🌍 COMPREHENSIVE ANSI Color Test - Global Compatibility
+=======================================================
+
+This file tests ALL ANSI color formats used by developers worldwide.
+
+📱 BASIC 8 COLORS (30-37)
+=========================
+Black: \033[30mBlack text\033[0m
+Red: \033[31mRed text\033[0m  
+Green: \033[32mGreen text\033[0m
+Yellow: \033[33mYellow text\033[0m
+Blue: \033[34mBlue text\033[0m
+Magenta: \033[35mMagenta text\033[0m
+Cyan: \033[36mCyan text\033[0m
+White: \033[37mWhite text\033[0m
+
+🎨 BACKGROUND COLORS (40-47)
+============================
+Black BG: \033[40mBlack background\033[0m
+Red BG: \033[41mRed background\033[0m
+Green BG: \033[42mGreen background\033[0m
+Yellow BG: \033[43mYellow background\033[0m
+Blue BG: \033[44mBlue background\033[0m
+Magenta BG: \033[45mMagenta background\033[0m
+Cyan BG: \033[46mCyan background\033[0m
+White BG: \033[47mWhite background\033[0m
+
+✨ BRIGHT COLORS (90-97)
+========================
+Bright Black: \033[90mBright black\033[0m
+Bright Red: \033[91mBright red\033[0m
+Bright Green: \033[92mBright green\033[0m
+Bright Yellow: \033[93mBright yellow\033[0m
+Bright Blue: \033[94mBright blue\033[0m
+Bright Magenta: \033[95mBright magenta\033[0m
+Bright Cyan: \033[96mBright cyan\033[0m
+Bright White: \033[97mBright white\033[0m
+
+🔆 BRIGHT BACKGROUNDS (100-107)
+===============================
+Bright Black BG: \033[100mBright black BG\033[0m
+Bright Red BG: \033[101mBright red BG\033[0m
+Bright Green BG: \033[102mBright green BG\033[0m
+Bright Yellow BG: \033[103mBright yellow BG\033[0m
+Bright Blue BG: \033[104mBright blue BG\033[0m
+Bright Magenta BG: \033[105mBright magenta BG\033[0m
+Bright Cyan BG: \033[106mBright cyan BG\033[0m
+Bright White BG: \033[107mBright white BG\033[0m
+
+🎯 COMPLEX ATTRIBUTES
+=====================
+Bold Red: \033[1;31mBold red text\033[0m
+Underlined Blue: \033[4;34mUnderlined blue\033[0m
+Bold Underlined Green: \033[1;4;32mBold underlined green\033[0m
+Italic Yellow: \033[3;33mItalic yellow\033[0m
+
+🔢 256-COLOR PALETTE (38;5;n)
+=============================
+Red 256: \033[38;5;196mBright red (196)\033[0m
+Orange 256: \033[38;5;208mOrange (208)\033[0m
+Yellow 256: \033[38;5;226mYellow (226)\033[0m
+Green 256: \033[38;5;46mGreen (46)\033[0m
+Blue 256: \033[38;5;21mBlue (21)\033[0m
+Purple 256: \033[38;5;129mPurple (129)\033[0m
+Gray 256: \033[38;5;240mGray (240)\033[0m
+
+🔢 256-COLOR BACKGROUNDS (48;5;n)
+=================================
+Red BG 256: \033[48;5;196mRed background (196)\033[0m
+Green BG 256: \033[48;5;46mGreen background (46)\033[0m
+Blue BG 256: \033[48;5;21mBlue background (21)\033[0m
+
+🌈 TRUE COLOR RGB (38;2;r;g;b)
+==============================
+Pure Red RGB: \033[38;2;255;0;0mPure red RGB\033[0m
+Pure Green RGB: \033[38;2;0;255;0mPure green RGB\033[0m
+Pure Blue RGB: \033[38;2;0;0;255mPure blue RGB\033[0m
+Orange RGB: \033[38;2;255;165;0mOrange RGB\033[0m
+Pink RGB: \033[38;2;255;192;203mPink RGB\033[0m
+Turquoise RGB: \033[38;2;64;224;208mTurquoise RGB\033[0m
+
+🌈 TRUE COLOR RGB BACKGROUNDS (48;2;r;g;b)
+==========================================
+Red BG RGB: \033[48;2;255;0;0mRed background RGB\033[0m
+Green BG RGB: \033[48;2;0;255;0mGreen background RGB\033[0m
+Blue BG RGB: \033[48;2;0;0;255mBlue background RGB\033[0m
+
+🔄 DIFFERENT ESCAPE FORMATS
+============================
+Octal format: \033[31mRed with \\033\033[0m
+Hex format: \x1b[32mGreen with \\x1b\033[0m
+E format: \e[34mBlue with \\e\033[0m
+
+🔧 RESET CODES
+==============
+Reset: \033[0mReset to default\033[0m
+Default FG: \033[39mDefault foreground\033[0m
+Default BG: \033[49mDefault background\033[0m
+
+=======================================================
+🎨 Your ANSI Color Viewer should now handle ALL of these formats!
+   - Click on any color code to open the native color picker
+   - Hover for detailed color information
+   - Right-click for context menu options
+=======================================================
