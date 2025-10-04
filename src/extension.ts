@@ -1,6 +1,6 @@
 /**
- * ANSI Color Viewer Extension
- * Main entry point for the VS Code extension
+ * ANSI Spectrum Extension
+ * Ultimate Visualization - Main entry point for the extension
  */
 import * as vscode from 'vscode';
 import { COMMANDS } from './constants';
@@ -12,7 +12,9 @@ import { AnsiHoverProvider, AnsiColorProvider } from './providers';
  * Extension activation entry point
  */
 export function activate(context: vscode.ExtensionContext): void {
-  console.log('ANSI Color Viewer extension is now active!');
+  console.log(
+    'ANSI Spectrum - Ultimate Visualization extension is now active!'
+  );
 
   // Initialize managers
   const decorationManager = new DecorationManager();
@@ -82,5 +84,5 @@ export function activate(context: vscode.ExtensionContext): void {
  * Extension deactivation
  */
 export function deactivate(): void {
-  console.log('ANSI Color Viewer extension deactivated');
+  console.log('ANSI Spectrum extension deactivated');
 }

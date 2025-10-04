@@ -1,4 +1,4 @@
-# ANSI Color Picker Test
+# ANSI Spectrum - Ultimate Visualization Test
 
 Test the color picker functionality with different ANSI formats:
 

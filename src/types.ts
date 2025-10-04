@@ -1,5 +1,6 @@
 /**
- * Type definitions for ANSI Color Viewer extension
+ * Type definitions for ANSI Spectrum extension
+ * Ultimate Visualization
  */
 import * as vscode from 'vscode';
 

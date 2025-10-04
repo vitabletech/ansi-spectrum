@@ -1,8 +1,30 @@
 {
-  "name": "ansi-color-viewer",
-  "displayName": "ANSI Color Viewer",
-  "description": "Highlights ANSI escape color codes with their actual colors in VS Code",
+  "name": "ansi-spectrum",
+  "displayName": "ANSI Spectrum",
+  "description": "Ultimate Visualization - Comprehensive ANSI escape sequence visualization with native color picker integration",
   "version": "0.0.1",
+  "icon": "images/logo.png",
+  "publisher": "vitabletech",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vitabletech/ansi-spectrum.git"
+  },
+  "homepage": "https://github.com/vitabletech/ansi-spectrum#readme",
+  "bugs": {
+    "url": "https://github.com/vitabletech/ansi-spectrum/issues"
+  },
+  "keywords": [
+    "ansi",
+    "colors",
+    "terminal",
+    "escape sequences",
+    "color picker",
+    "visualization",
+    "logging",
+    "cli",
+    "debugging"
+  ],
+  "license": "MIT",
   "engines": {
     "vscode": "^1.104.0"
   },
@@ -16,16 +38,16 @@
   "contributes": {
     "commands": [
       {
-        "command": "ansi-color-viewer.pickColor",
+        "command": "ansi-spectrum.pickColor",
         "title": "Pick ANSI Color",
-        "category": "ANSI Color Viewer"
+        "category": "ANSI Spectrum"
       }
     ],
     "menus": {
       "editor/context": [
         {
           "when": "editorTextFocus",
-          "command": "ansi-color-viewer.pickColor",
+          "command": "ansi-spectrum.pickColor",
           "group": "1_modification"
         }
       ]
@@ -61,6 +83,7 @@
     "prettier": "^3.6.2",
     "ts-loader": "^9.5.2",
     "typescript": "^5.9.2",
+    "vsce": "^1.103.1",
     "webpack": "^5.101.0",
     "webpack-cli": "^6.0.1"
   }

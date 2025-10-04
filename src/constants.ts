@@ -1,6 +1,6 @@
 /**
- * Constants and configurations for ANSI Color Viewer extension
- * Comprehensive support for all ANSI color formats used globally
+ * Constants and configurations for ANSI Spectrum extension
+ * Ultimate Visualization - Comprehensive support for all ANSI color formats used globally
  */
 
 // ANSI color code mapping to hex colors - Extended for global compatibility
@@ -211,5 +211,5 @@ export const ESCAPE_PREFIXES = [
 
 // Extension commands
 export const COMMANDS = {
-  PICK_COLOR: 'ansi-color-viewer.pickColor',
+  PICK_COLOR: 'ansi-spectrum.pickColor',
 } as const;

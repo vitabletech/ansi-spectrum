@@ -1,5 +1,6 @@
 /**
- * Utility functions for ANSI Color Viewer extension
+ * Utility functions for ANSI Spectrum extension
+ * Ultimate Visualization
  */
 import * as vscode from 'vscode';
 import {
