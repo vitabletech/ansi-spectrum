@@ -13,7 +13,24 @@
     "onStartupFinished"
   ],
   "main": "./dist/extension.js",
-  "contributes": {},
+  "contributes": {
+    "commands": [
+      {
+        "command": "ansi-color-viewer.pickColor",
+        "title": "Pick ANSI Color",
+        "category": "ANSI Color Viewer"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "editorTextFocus",
+          "command": "ansi-color-viewer.pickColor",
+          "group": "1_modification"
+        }
+      ]
+    }
+  },
   "scripts": {
     "vscode:prepublish": "npm run package",
     "compile": "webpack",
