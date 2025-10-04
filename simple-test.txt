@@ -1,5 +1,0 @@
-Simple test:
-\033[31mRed
-\033[32mGreen  
-\033[34mBlue
-\x1b[35mMagenta with x1b format
